@@ -8,9 +8,12 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  
+  const API_BASE = "https://audit-trail-wsye.onrender.com";
+
   const saveVersion = async (text) => {
     try {
-      const res = await fetch("http://localhost:4000/save-version", {
+      const res = await fetch(`${API_BASE}/save-version`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text }),
@@ -26,7 +29,7 @@ function App() {
   useEffect(() => {
     const fetchVersions = async () => {
       try {
-        const res = await fetch("http://localhost:4000/versions");
+        const res = await fetch(`${API_BASE}/versions`);
         if (!res.ok) throw new Error("Failed to fetch versions");
         const data = await res.json();
         setVersions(data);
@@ -45,7 +48,6 @@ function App() {
         <h1>Mini Audit Trail Generator</h1>
       </header>
 
-      {}
       <main className="main-grid">
         <Editor onSave={saveVersion} />
         {loading ? (
