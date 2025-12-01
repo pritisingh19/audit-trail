@@ -2,15 +2,17 @@ const express = require("express");
 const cors = require("cors");
 const { v4: uuidv4 } = require("uuid");
 
+const app = express();
 
- const app = express();
-app.use(cors());
-  app.use(express.json());
+
+app.use(cors({
+  origin: "https://audit-trail-h7t7va920-flobits-projects-1520648e.vercel.app"
+}));
+
+app.use(express.json());
 
 let versions = [];
 let lastText = "";
-
-   
 
 app.post("/save-version", (req, res) => {
   const { text } = req.body;
@@ -20,7 +22,6 @@ app.post("/save-version", (req, res) => {
   const added = newWords.filter((w) => !oldWords.includes(w));
   const removed = oldWords.filter((w) => !newWords.includes(w));
 
-  
   const entry = {
     id: uuidv4(),
     timestamp: new Date().toLocaleString(),
