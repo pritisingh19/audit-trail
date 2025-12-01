@@ -4,7 +4,6 @@ const { v4: uuidv4 } = require("uuid");
 
 const app = express();
 
-
 app.use(cors({
   origin: "https://audit-trail-h7t7va920-flobits-projects-1520648e.vercel.app"
 }));
@@ -13,6 +12,10 @@ app.use(express.json());
 
 let versions = [];
 let lastText = "";
+
+app.get("/", (req, res) => {
+  res.send("API is running");
+});
 
 app.post("/save-version", (req, res) => {
   const { text } = req.body;
@@ -40,7 +43,6 @@ app.post("/save-version", (req, res) => {
 app.get("/versions", (req, res) => {
   res.json(versions);
 });
-
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
