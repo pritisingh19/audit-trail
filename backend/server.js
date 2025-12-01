@@ -4,21 +4,28 @@ const { v4: uuidv4 } = require("uuid");
 
 const app = express();
 
+
 app.use(cors({
   origin: "https://audit-trail-h7t7va920-flobits-projects-1520648e.vercel.app"
 }));
 
+
 app.use(express.json());
 
-let versions = [];
-let lastText = "";
 
 app.get("/", (req, res) => {
   res.send("API is running");
 });
 
+
+let versions = [];
+let lastText = "";
+
+
 app.post("/save-version", (req, res) => {
   const { text } = req.body;
+  if (!text) return res.status(400).json({ error: "Text is required" });
+
   const oldWords = lastText.split(/\s+/).filter(Boolean);
   const newWords = text.split(/\s+/).filter(Boolean);
 
@@ -40,9 +47,11 @@ app.post("/save-version", (req, res) => {
   res.json(versions);
 });
 
+
 app.get("/versions", (req, res) => {
   res.json(versions);
 });
+
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
