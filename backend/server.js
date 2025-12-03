@@ -5,10 +5,15 @@ const { v4: uuidv4 } = require("uuid");
 const app = express();
 
 
-app.use(cors({
-  origin: "https://audit-trail-h7t7va920-flobits-projects-1520648e.vercel.app"
-}));
+const allowedOrigins = [
+  "http://localhost:3000", 
+  "https://audit-trail-wsye.onrender.com"
+];
 
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 
 app.use(express.json());
 
@@ -16,7 +21,6 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("API is running");
 });
-
 
 let versions = [];
 let lastText = "";
