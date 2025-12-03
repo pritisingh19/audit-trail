@@ -8,7 +8,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  
+  // ✅ This is your backend URL hosted on Render
   const API_BASE = "https://audit-trail-wsye.onrender.com";
 
   const saveVersion = async (text) => {
